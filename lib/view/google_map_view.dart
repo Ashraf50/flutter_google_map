@@ -15,11 +15,13 @@ class _GoogleMapViewState extends State<GoogleMapView> {
     super.initState();
     initMarkers();
     initPolyLines();
+    initPolygon();
   }
 
   late GoogleMapController googleMapController;
   Set<Marker> markers = {};
   Set<Polyline> polyLines = {};
+  Set<Polygon> polyGons = {};
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class _GoogleMapViewState extends State<GoogleMapView> {
       body: Stack(
         children: [
           GoogleMap(
+            polygons: polyGons,
             polylines: polyLines,
             markers: markers,
             onMapCreated: (controller) {
@@ -86,5 +89,29 @@ class _GoogleMapViewState extends State<GoogleMapView> {
       ],
     );
     polyLines.add(polyLine);
+  }
+
+  void initPolygon() {
+    var polyGon = Polygon(
+      fillColor: Colors.black.withOpacity(.5),
+      polygonId: const PolygonId("1"),
+      holes: const [
+        [
+          LatLng(31.14528467619539, 30.608745526944563),
+          LatLng(31.145292294037148, 30.60880997055759),
+          LatLng(31.145228017458045, 30.608818017184323),
+          LatLng(31.145221704577366, 30.608752303066026),
+          LatLng(31.14528467619539, 30.608745526944563),
+        ]
+      ],
+      points: const [
+        LatLng(31.1492655604694, 30.61352308168096),
+        LatLng(31.148859604170468, 30.602375967679798),
+        LatLng(31.141552093526478, 30.60711942044625),
+        LatLng(31.141349099080067, 30.617555016532446),
+        LatLng(31.1492655604694, 30.61352308168096),
+      ],
+    );
+    polyGons.add(polyGon);
   }
 }
