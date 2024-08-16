@@ -14,16 +14,20 @@ class _GoogleMapViewState extends State<GoogleMapView> {
   void initState() {
     super.initState();
     initMarkers();
+    initPolyLines();
   }
 
   late GoogleMapController googleMapController;
   Set<Marker> markers = {};
+  Set<Polyline> polyLines = {};
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           GoogleMap(
+            polylines: polyLines,
             markers: markers,
             onMapCreated: (controller) {
               googleMapController = controller;
@@ -69,5 +73,18 @@ class _GoogleMapViewState extends State<GoogleMapView> {
         .toSet();
 
     markers.addAll(myMarkers);
+  }
+
+  void initPolyLines() {
+    Polyline polyLine = const Polyline(
+      color: Colors.red,
+      polylineId: PolylineId("1"),
+      points: [
+        LatLng(31.1331515435719, 30.639067008632633),
+        LatLng(31.043864122956517, 30.47134021420016),
+        LatLng(31.199092634111146, 29.922828264839914),
+      ],
+    );
+    polyLines.add(polyLine);
   }
 }
