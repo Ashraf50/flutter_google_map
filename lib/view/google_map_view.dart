@@ -9,6 +9,12 @@ class GoogleMapView extends StatefulWidget {
 }
 
 class _GoogleMapViewState extends State<GoogleMapView> {
+  @override
+  void initState() {
+    super.initState();
+    initMarkers();
+  }
+
   late GoogleMapController googleMapController;
   Set<Marker> markers = {};
   @override
@@ -50,5 +56,12 @@ class _GoogleMapViewState extends State<GoogleMapView> {
     var assetsMapStyle = await DefaultAssetBundle.of(context)
         .loadString("assets/map_styles/night_map_style.json");
     googleMapController.setMapStyle(assetsMapStyle);
+  }
+
+  void initMarkers() {
+    var myMarkers = const Marker(
+        markerId: MarkerId("1"),
+        position: LatLng(31.19992823449557, 29.919197953782454));
+    markers.add(myMarkers);
   }
 }
