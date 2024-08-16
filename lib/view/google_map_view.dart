@@ -16,12 +16,14 @@ class _GoogleMapViewState extends State<GoogleMapView> {
     initMarkers();
     initPolyLines();
     initPolygon();
+    initCircle();
   }
 
   late GoogleMapController googleMapController;
   Set<Marker> markers = {};
   Set<Polyline> polyLines = {};
   Set<Polygon> polyGons = {};
+  Set<Circle> circles = {};
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class _GoogleMapViewState extends State<GoogleMapView> {
       body: Stack(
         children: [
           GoogleMap(
+            circles: circles,
             polygons: polyGons,
             polylines: polyLines,
             markers: markers,
@@ -113,5 +116,14 @@ class _GoogleMapViewState extends State<GoogleMapView> {
       ],
     );
     polyGons.add(polyGon);
+  }
+
+  void initCircle() {
+    var circle = const Circle(
+      circleId: CircleId("1"),
+      center: LatLng(31.134327550630385, 30.645586694870236),
+      radius: 1000,
+    );
+    circles.add(circle);
   }
 }
